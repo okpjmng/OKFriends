@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="卓球">
+<meta name="description" content="OK!Friends!!">
+<meta name="description" content="OK!フレンズ!!">
+<meta name="viewport" content="width=device-width">
+<title>OK!Friends!!</title>
+<link rel="stylesheet" media="all" href="css/style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script src="js/script.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-180669942-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-180669942-1');
+</script>
+<!-- Google ads -->
+<script data-ad-client="ca-pub-2291372388616523" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+<body id="top">
+<header id="header">
+<!-- Google ads -->
+<script data-ad-client="ca-pub-2291372388616523" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<div id="headerWrap">
+		<h1><img src="images/logo_02.jpg" alt="logo"></h1>
+		<nav id="mainnav">
+			<p id="menuWrap"><a id="menu"><span id="menuBtn"></span></a></p>
+			<div class="panel">
+				<ul>
+					<li><a href="#top">TOP</a></li>
+					<li><a href="#sec00">NEW</a></li>
+					<li><a href="#sec01">MESSAGE</a></li>
+					<li><a href="#sec02">GALLERY</a></li>
+					<li><a href="#sec03">PROJECT</a></li>
+					<li><a href="#sec04">BRAND</a></li>
+					<li><a href="#sec05">INFO</a></li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+</header>
+
+<div class="innerS" align="center">
+	<video width=100% style="margin-top: 100px; margin-bottom: -100px;" src="images/Hisashi_01.mp4" autoplay muted playsinline loop></video>
+</div>
+
+<!-- NEW -->
+<section id="sec00">
+	<header>
+		<h2><span>New</span></h2>
+	</header>
+	<div class="innerS">
+		<div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; border-radius: 10px; background-color: #eee8aa; font-family: 'Caveat', cursive;">
+			<p>=== 卓球新着情報 ===</p>
+		</div>
+		<div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; border-radius: 10px; background-color: #bdb76b; color: #ffffff; font-family: 'Caveat', cursive;">
+			<!-- <p><font color=#0000FF>■ 12/21 (土) </font><font color="red">★★直近情報★★</font></p> -->
+			<p id="saturday1"></p>
+			<p style="padding-left: 20px"><font color=#0000FF>  時間：17:00 ～ 19:00</font></p>
+			<p style="padding-left: 20px"><font color=#0000FF>  場所：福岡市立中央体育館</font></p>
+			<!-- <p>■ 12/28 (土) </p> -->
+			<p id="saturday2"></p>
+			<p style="padding-left: 20px">  時間：17:00 ～ 19:00</p>
+			<p style="padding-left: 20px">  場所：福岡市立中央体育館</p>
+			<!-- <p>■ 01/11 (土)</p> -->
+			<p id="saturday3"></p>
+			<p style="padding-left: 20px">  時間：17:00 ～ 19:00</p>
+			<p style="padding-left: 20px">  場所：福岡市立中央体育館</p>
+			<!-- <p>■ 01/18 (土)</p> -->
+			<p id="saturday4"></p>
+			<p style="padding-left: 20px">  時間：17:00 ～ 19:00</p>
+			<p style="padding-left: 20px">  場所：福岡市立中央体育館</p>
+
+		</div>
+	</div>
+</section>
+<script>
+	// 曜日を日本語に変換するための配列
+	const weekDays = ['日', '月', '火', '水', '木', '金', '土'];
+  
+	// 日付をフォーマットする関数
+	function formatDateToJapanese(date) {
+	  const month = date.getMonth() + 1;  // 月は0から始まるので+1
+	  const day = date.getDate();
+	  const dayOfWeek = weekDays[date.getDay()];  // 曜日を取得
+  
+	  return `${month}/${day} (${dayOfWeek})`;
+	}
+  
+	// 今日を基準に4週分の日付を取得する関数
+	function getNextFourWeeks(numWeeks) {
+	  const today = new Date();
+	  const dayOfWeek = today.getDay(); // 今日の曜日を取得 (0: 日曜日, 1: 月曜日, ..., 6: 土曜日)
+	
+	  // 今日が土曜日でなければ次の土曜日を見つける
+	  const daysUntilSaturday = (6 - dayOfWeek + 7) % 7;
+	
+	  // 最初の土曜日を取得
+	  const nextSaturday = new Date(today);
+	  nextSaturday.setDate(today.getDate() + daysUntilSaturday);
+  
+	  const saturdays = [];
+  
+	  // 指定した週分の土曜日を取得
+	  for (let i = 0; i < numWeeks; i++) {
+		const saturday = new Date(nextSaturday);
+		saturday.setDate(nextSaturday.getDate() + (i * 7)); // 7日後ごとに次の土曜日を取得
+		saturdays.push(formatDateToJapanese(saturday)); // フォーマットして配列に追加
+	  }
+  
+	  return saturdays;
+	}
+  
+	// 4週分の日付を表示
+	const saturdays = getNextFourWeeks(4);
+	// alert(saturdays);  // 例: ["10/26 (土)", "11/2 (土)", "11/9 (土)", "11/16 (土)"]
+
+    // 指定した1週目～4週目の土曜日を取得
+    for (let i = 0; i <= 3; i++) {
+		// 1週目の土曜日の場合
+		if (i == 0) {
+			saturdays[i] = `<font color=#0000FF>` + `■ ${saturdays[i]} ` + `</font><font color="red">★★直近情報★★</font>`;
+		} else {
+			saturdays[i] = `■ ${saturdays[i]} `;
+		}
+    }
+  
+	// pタグに値をセット
+	document.getElementById('saturday1').innerHTML = saturdays[0];
+	document.getElementById('saturday2').innerHTML = saturdays[1];
+	document.getElementById('saturday3').innerHTML = saturdays[2];
+	document.getElementById('saturday4').innerHTML = saturdays[3];
+  </script>
+<!-- // NEW -->
+
+<!-- MESSAGE -->
+<section id="sec01">
+	<header>
+		<h2><span>Message</span></h2>
+	</header>
+	<div class="innerS">
+		<p>～ 卓球サークル！ ～ </p>
+		<p>・楽しく友達を作ることがメインとなります</p>
+		<p>・運動不足解消や遊びに行く感覚でOK！！</p>
+		<p>・初心者でも歓迎！！</p>
+		<p>・道具レンタルも可能なので安心ください</p>
+		<p>・途中参加、途中退出も可能です</p>
+		<p>・少しでも興味があれば、気軽にご参加ください</p>
+	</div>
+</section>
+<!-- // MESSAGE -->
+
+<!-- GALLERY -->
+<section id="sec02">
+	<header>
+		<h2><span>Gallery</span></h2>
+	</header>
+	<ul id="gallery">
+		<!-- 良い画像があれば随時差し替え -->
+		<li><img src="images/gallery_01.png" width="426" height="418" alt=""></li>
+		<!-- <li><img src="images/gallery_02.png" width="426" height="418" alt=""></li> -->
+		<!-- <li><img src="images/gallery_03.png" width="426" height="418" alt=""></li> -->
+		<!-- <li><img src="images/gallery_04.png" width="426" height="418" alt=""></li> -->
+		<li><img src="images/gallery_05.png" width="426" height="418" alt=""></li>
+		<li><img src="images/gallery_06.png" width="426" height="418" alt=""></li>
+	</ul>
+</section>
+<!-- // GALLERY -->
+
+<!-- PROJECT -->
+<section id="sec03">
+	<header>
+		<h2><span>Project</span></h2>
+	</header>
+	<div class="innerS">
+		<img src="images/project_01.jpg" width="726" height="333" alt="">
+		<p>～ 卓球以外も色々なイベント開催しています！！ ～</p>
+		<p>・皆の挑戦をどんどん企画、手助けしていきます！</p>
+		<p>・Webサイト作成依頼等！</p>
+		<p>・ぜひ、気軽にご相談ください!</p>
+	</div>
+</section>
+<!-- // PROJECT -->
+<img src="images/subImg_02.jpg" alt="">
+
+<!-- BRAND --> 
+<section id="sec04">
+	<header>
+		<h2><span>Brand</span></h2>
+	</header>
+	<div class="inner">
+		<ul class="col3">
+			<!-- <li>
+				<p class="img"><img src="images/games_01.jpg" width="170" height="106" alt=""></p>
+				<p>GamesProject</p>
+			</li> -->
+			<li>
+				<p class="img"><img src="images/member_02.jpg" width="170" height="106" alt="Members"></p>
+				<p>MembersProject</p>
+			</li>
+			<li>
+				<p class="img"><img src="images/groups_01.jpg" width="170" height="106" alt="Groups"></p>
+				<p>GroupsProject</p>
+			</li>
+			<li>
+				<p class="img"><img src="images/inc_01.jpg" width="170" height="106" alt="inc"></p>
+				<p>SoleiL</p>
+			</li>
+		</ul>
+	</div>
+	<div id="sec04_02">
+		<p><img src="images/logoBrand_01.png" width="340" height="107" alt=""></p>
+	</div>
+</section>
+
+<!-- INFO -->
+<section id="sec05">
+	<header>
+		<h2><span>Info</span></h2>
+	</header>
+	<div class="innerS">	
+		<!-- 基本情報 -->
+		<!-- <p>〒XXX-XXX<br>福岡県1-3-5</p>
+		<p>TEL xxx-xxx-xxxx</p>
+		<p>e-Mail ： okpjmng@gmail.com</p> -->
+		<p>時間 ： 17:00 ～ 19:00（主に土曜日、要望があれば平日）</p>
+		<p>場所 ： 福岡市立中央体育館、福岡市立南体育館</p>
+		<p>※現在、毎週時間と場所は不定ですので最新情報をご確認ください。</p>
+		<p>※都合により開催しない場合があります</p>
+		<p id="sns">
+			<a href="#" target="_blank"><img src="images/iconFb.png" width="20" height="20" alt="FB"></a>
+			<a href="https://twitter.com/ok_friend2017" target="_blank"><img src="images/iconTw.png" width="20" height="20" alt="X(twitter)"></a>
+			<a href="https://instagram.com/ok_friends2017?igshid=OGQ5ZDc2ODk2ZA==" target="_blank"><img src="images/iconInsta.png" width="20" height="20" alt="Instagram"></a>
+			<a href="#" target="_blank"><img src="images/iconYouTube.png" width="20" height="20" alt="You Tube"></a>
+		</p>
+	<!-- 場所:中央体育館 -->
+		<ul class="col2">
+			<li>
+				<a href= "https://www.sports-fukuokacity.or.jp/facility/gym_chuou.html" >■福岡市立中央体育館</a>
+				<p>〒810-0042 福岡県福岡市中央区赤坂２丁目５－５</p>
+			</li>
+			<li>
+				<div id="map">
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3323.7331380616615!2d130.38696731454172!3d33.586277449589886!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3541922a407926bd%3A0x5d7ab72cf6a36a6e!2z56aP5bKh5biC56uL5Lit5aSu5L2T6IKy6aSo!5e0!3m2!1sja!2sjp!4v1602074959797!5m2!1sja!2sjp" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+				</div>
+			</li>
+		</ul>
+	<!-- 場所:南体育館 -->
+		<ul class="col2">
+			<li>
+				<a href= "https://ssk-hakata-gym.com" >■福岡市立南体育館</a>
+				<p>〒815-0032 福岡県福岡市南区塩原２丁目８ー１</p>
+			</li>
+			<li>
+				<div id="map">
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3324.537686373832!2d130.42136517569585!3d33.56538617334424!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x354191068eadc0a3%3A0x17cc7f069022eb0a!2z44CSODE1LTAwMzIg56aP5bKh55yM56aP5bKh5biC5Y2X5Yy65aGp5Y6f77yS5LiB55uu77yY4oiS77yRIOemj-WyoeW4gueri-WNl-S9k-iCsumkqA!5e0!3m2!1sja!2sjp!4v1728814056601!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+				</div>
+			</li>
+		</ul>
+	</div>
+</section>
+<!-- // INFO -->
+
+<footer id="footer">
+	<a href="gym-booking-info">Copyright(c) 2017 OK!フレンズ!! </a>
+</footer>
+
+</body>
+</html>

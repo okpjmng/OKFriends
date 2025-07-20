@@ -1,0 +1,7 @@
+#####wpcomment_nojpdeny#####
+SetEnvIf Request_URI ".*" WpCommentDeny
+#####end:wpcomment_nojpdeny#####
+
+RewriteEngine On
+RewriteRule ^gym-booking-info$ /gym_booking_info.html [L]
+RewriteRule ^booking-confirm$ /booking_confirm.html [L]

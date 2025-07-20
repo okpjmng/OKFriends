@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>卓球予約状況</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <style>
+      .container {
+        margin-top: 20px;
+      }
+      .required-icon {
+        color: #ff7f7f; /* 薄めの赤色 */
+        margin-left: 2px; /* アイコンとテキストの間隔 */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>卓球予約状況</h1>
+      <form id="reservationForm">
+        <div class="form-group">
+          <label for="eventDate">卓球開催日<span class="required-icon"><i class="fas fa-asterisk"></i></span></label>
+          <input type="date" class="form-control" id="eventDate" required />
+        </div>
+        <div class="form-group">
+          <label for="eventTime">卓球開催時刻<span class="required-icon"><i class="fas fa-asterisk"></i></span></label>
+          <select class="form-control" id="eventTime" required>
+            <option value="">選択してください</option>
+            <option value="17:00〜19:00">17:00〜19:00</option>
+            <option value="19:00〜21:00">19:00〜21:00</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="participants">卓球参加予定人数を数値で入力<span class="required-icon"><i class="fas fa-asterisk"></i></span></label>
+          <input type="number" class="form-control" id="participants" required />
+        </div>
+        <div class="form-group">
+          <label for="newParticipants">新規参加予定人数を数値で入力<span class="required-icon"><i class="fas fa-asterisk"></i></span></label>
+          <input type="number" class="form-control" id="newParticipants" required />
+        </div>
+        <div class="form-group">
+          <label for="totalParticipants">合計参加人数</label>
+          <input type="number" class="form-control" id="totalParticipants" readonly />
+        </div>
+
+        <!-- 予約者欄を6つ追加 -->
+        <div class="form-group">
+          <label for="reserver1">予約者１<span class="required-icon"><i class="fas fa-asterisk"></i></span></label>
+          <select class="form-control" id="reserver1" required>
+            <option value="">選択してください</option>
+            <option value="石井">石井</option>
+            <option value="井上">井上</option>
+            <option value="加藤">加藤</option>
+            <option value="河野">河野</option>
+            <option value="塩川">塩川</option>
+            <option value="濱田">濱田</option>
+            <option value="箕輪">箕輪</option>
+            <option value="森岡">森岡</option>
+            <option value="山口">山口</option>
+            <option value="吉岡">吉岡</option>
+            <option value="吉田">吉田</option>
+            <option value="渡辺">渡辺</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="reserver2">予約者２</label>
+          <select class="form-control" id="reserver2">
+            <option value="">選択してください</option>
+            <option value="石井">石井</option>
+            <option value="井上">井上</option>
+            <option value="加藤">加藤</option>
+            <option value="河野">河野</option>
+            <option value="塩川">塩川</option>
+            <option value="濱田">濱田</option>
+            <option value="箕輪">箕輪</option>
+            <option value="森岡">森岡</option>
+            <option value="山口">山口</option>
+            <option value="吉岡">吉岡</option>
+            <option value="吉田">吉田</option>
+            <option value="渡辺">渡辺</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="reserver3">予約者３</label>
+          <select class="form-control" id="reserver3">
+            <option value="">選択してください</option>
+            <option value="石井">石井</option>
+            <option value="井上">井上</option>
+            <option value="加藤">加藤</option>
+            <option value="河野">河野</option>
+            <option value="塩川">塩川</option>
+            <option value="濱田">濱田</option>
+            <option value="箕輪">箕輪</option>
+            <option value="森岡">森岡</option>
+            <option value="山口">山口</option>
+            <option value="吉岡">吉岡</option>
+            <option value="吉田">吉田</option>
+            <option value="渡辺">渡辺</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="reserver4">予約者４</label>
+          <select class="form-control" id="reserver4">
+            <option value="">選択してください</option>
+            <option value="石井">石井</option>
+            <option value="井上">井上</option>
+            <option value="加藤">加藤</option>
+            <option value="河野">河野</option>
+            <option value="塩川">塩川</option>
+            <option value="濱田">濱田</option>
+            <option value="箕輪">箕輪</option>
+            <option value="森岡">森岡</option>
+            <option value="山口">山口</option>
+            <option value="吉岡">吉岡</option>
+            <option value="吉田">吉田</option>
+            <option value="渡辺">渡辺</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="reserver5">予約者５</label>
+          <select class="form-control" id="reserver5">
+            <option value="">選択してください</option>
+            <option value="石井">石井</option>
+            <option value="井上">井上</option>
+            <option value="加藤">加藤</option>
+            <option value="河野">河野</option>
+            <option value="塩川">塩川</option>
+            <option value="濱田">濱田</option>
+            <option value="箕輪">箕輪</option>
+            <option value="森岡">森岡</option>
+            <option value="山口">山口</option>
+            <option value="吉岡">吉岡</option>
+            <option value="吉田">吉田</option>
+            <option value="渡辺">渡辺</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="reserver6">予約者６</label>
+          <select class="form-control" id="reserver6">
+            <option value="">選択してください</option>
+            <option value="石井">石井</option>
+            <option value="井上">井上</option>
+            <option value="加藤">加藤</option>
+            <option value="河野">河野</option>
+            <option value="塩川">塩川</option>
+            <option value="濱田">濱田</option>
+            <option value="箕輪">箕輪</option>
+            <option value="森岡">森岡</option>
+            <option value="山口">山口</option>
+            <option value="吉岡">吉岡</option>
+            <option value="吉田">吉田</option>
+            <option value="渡辺">渡辺</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="reserver7">予約者７</label>
+          <select class="form-control" id="reserver7">
+            <option value="">選択してください</option>
+            <option value="石井">石井</option>
+            <option value="井上">井上</option>
+            <option value="加藤">加藤</option>
+            <option value="河野">河野</option>
+            <option value="塩川">塩川</option>
+            <option value="濱田">濱田</option>
+            <option value="箕輪">箕輪</option>
+            <option value="森岡">森岡</option>
+            <option value="山口">山口</option>
+            <option value="吉岡">吉岡</option>
+            <option value="吉田">吉田</option>
+            <option value="渡辺">渡辺</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="reserver8">予約者８</label>
+          <select class="form-control" id="reserver8">
+            <option value="">選択してください</option>
+            <option value="石井">石井</option>
+            <option value="井上">井上</option>
+            <option value="加藤">加藤</option>
+            <option value="河野">河野</option>
+            <option value="塩川">塩川</option>
+            <option value="濱田">濱田</option>
+            <option value="箕輪">箕輪</option>
+            <option value="森岡">森岡</option>
+            <option value="山口">山口</option>
+            <option value="吉岡">吉岡</option>
+            <option value="吉田">吉田</option>
+            <option value="渡辺">渡辺</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="availabilityStatus">台空き状況<span class="required-icon"><i class="fas fa-asterisk"></i></span></label>
+          <select class="form-control" id="availabilityStatus" required>
+            <option value="">選択してください</option>
+            <option value="0">０</option>
+            <option value="1">１</option>
+            <option value="2">２</option>
+            <option value="3">３</option>
+            <option value="4">４</option>
+            <option value="5">５</option>
+            <option value="6">６</option>
+            <option value="7">７</option>
+            <option value="8">８</option>
+            <option value="?">？</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="remarks">備考（新規参加者情報等）</label>
+          <textarea class="form-control" id="remarks" maxlength="50"></textarea>
+        </div>
+        <button type="button" class="btn btn-primary" id="convertButton">変換する</button>
+      </form>
+    </div>
+
+    <!-- Bootstrapのモーダル -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalLabel">確認</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <div id="modalMessage"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+            <button type="button" class="btn btn-primary" id="confirmButton">確認する</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      // 現在の日付を基準に次の土曜日を設定
+      function setNextSaturday() {
+        const today = new Date() // 今日の日付を取得
+        const nextSaturday = new Date(today) // 今日の日付をコピー
+        const currentDay = today.getDay() // 今日の曜日を取得 (0: 日曜日, 1: 月曜日, ...)
+      
+        // 今日が土曜日の場合はその日を、そうでない場合は次の土曜日の日付を取得
+        const daysUntilSaturday = currentDay === 6 ? 0 : 6 - currentDay
+      
+        // nextSaturday に次の土曜日を設定
+        nextSaturday.setDate(today.getDate() + daysUntilSaturday)
+      
+        // ローカルの日付を yyyy-mm-dd 形式にフォーマット
+        const year = nextSaturday.getFullYear()
+        const month = String(nextSaturday.getMonth() + 1).padStart(2, '0') // 月は0始まりのため +1
+        const day = String(nextSaturday.getDate()).padStart(2, '0') // 日付を取得
+      
+        // 日付を "yyyy-mm-dd" 形式で結合
+        const formattedDate = `${year}-${month}-${day}`
+      
+        // input 要素の値を設定
+        $('#eventDate').val(formattedDate)
+      }
+      
+      // 合計参加人数を計算
+      function calculateTotalParticipants() {
+        const participants = parseInt($('#participants').val()) || 0
+        const newParticipants = parseInt($('#newParticipants').val()) || 0
+        const total = participants + newParticipants
+        $('#totalParticipants').val(total)
+      }
+      
+      $(document).ready(function () {
+        // 初期値を設定
+        setNextSaturday()
+      
+        // 参加人数が変更されたときに合計を計算
+        $('#participants, #newParticipants').on('input', calculateTotalParticipants)
+      
+        // 変換ボタンがクリックされたときの処理
+        $('#convertButton').on('click', function () {
+          const eventDate = $('#eventDate').val()
+          const eventTime = $('#eventTime').val()
+          const participants = $('#participants').val()
+          const newParticipants = $('#newParticipants').val()
+          const totalParticipants = $('#totalParticipants').val()
+          const reservers = [document.getElementById('reserver1').value || '', document.getElementById('reserver2').value || '', document.getElementById('reserver3').value || '', document.getElementById('reserver4').value || '', document.getElementById('reserver5').value || '', document.getElementById('reserver6').value || '',document.getElementById('reserver7').value || '',document.getElementById('reserver8').value || '']
+          const availabilityStatus = $('#availabilityStatus').val()
+          const remarks = $('#remarks').val()
+      
+          // 必須チェック
+          if (!eventDate || !eventTime || !participants || !newParticipants || !reserver1 || !availabilityStatus) {
+            alert('すべての必須項目を入力してください。')
+            return
+          }
+      
+          // 予約者情報をメッセージに追加
+          let reserverMessage = ''
+          reservers.forEach((reserver, index) => {
+            reserverMessage += `予約者${index + 1}: ${reserver}\n`
+          })
+      
+          // 確認メッセージを作成
+          const confirmationMessage =
+            `以下の内容でよろしいですか？\n` +
+            `卓球開催日: ${eventDate}\n` +
+            `卓球開催時刻: ${eventTime}\n` +
+            `卓球参加予定人数: ${participants}\n` +
+            `新規参加予定人数: ${newParticipants}\n` +
+            `合計参加人数: ${totalParticipants}\n` +
+            reserverMessage + // 予約者のメッセージを挿入
+            `台空き状況: ${availabilityStatus}` +
+            `備考： ${remarks}`
+      
+          $('#modalMessage').text(confirmationMessage)
+          $('#confirmationModal').modal('show') // モーダルを表示
+      
+          // 確認ボタンがクリックされたときの処理
+          $('#confirmButton')
+            .off('click')
+            .on('click', function () {
+              // URLクエリパラメータに予約者?〜?を含めて遷移
+              const redirectUrl = `booking_confirm.html?eventDate=${encodeURIComponent(eventDate)}&eventTime=${encodeURIComponent(eventTime)}&participants=${encodeURIComponent(participants)}&newParticipants=${encodeURIComponent(newParticipants)}&totalParticipants=${encodeURIComponent(totalParticipants)}&availabilityStatus=${encodeURIComponent(availabilityStatus)}&remarks=${encodeURIComponent(remarks)}&${reservers.map((reserver, index) => `reserver${index + 1}=${encodeURIComponent(reserver)}`).join('&')}`
+              window.location.href = redirectUrl // ページ遷移
+            })
+        })
+      })
+    </script>
+  </body>
+</html>

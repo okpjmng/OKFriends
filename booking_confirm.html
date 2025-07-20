@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>卓球予約確認</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+
+    <!-- jQuery（必要なら） -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+      .container {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>卓球予約確認</h1>
+      <div id="reservationDetails" class="alert alert-info">
+        <!-- 予約内容はここに表示されます -->
+        <h4>予約内容:</h4>
+        <p id="eventDateDisplay"></p>
+        <p id="eventTimeDisplay"></p>
+        <p id="participantsDisplay"></p>
+        <p id="newParticipantsDisplay"></p>
+        <p id="totalParticipantsDisplay"></p>
+        <p id="reserversCountDisplay"></p>
+        <p id="reserverDisplay"></p>
+        <p id="availabilityStatusDisplay"></p>
+        <p id="remarksDisplay"></p>
+      </div>
+      <button class="btn btn-primary" id="copyButton">内容をコピー</button>
+      <button class="btn btn-secondary" onclick="window.history.back();">戻る</button>
+    </div>
+
+    <div class="modal fade" id="copyModal" tabindex="-1" role="dialog" aria-labelledby="copyModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="copyModalLabel">コピー完了</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">予約内容がコピーされました!</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function formatDateToCustom(dateString) {
+        // dateStringは '2024-10-19' の形式を想定
+        const date = new Date(dateString)
+      
+        // 月と日を取得（月は0から始まるので+1する）
+        const month = date.getMonth() + 1
+        const day = date.getDate()
+      
+        // 曜日を日本語で表現
+        const weekdays = ['日', '月', '火', '水', '木', '金', '土']
+        const dayOfWeek = weekdays[date.getDay()] // 0:日曜日, 1:月曜日, ...
+      
+        // フォーマットした文字列を返す (例: 10/19（土）)
+        return `${month}/${day}（${dayOfWeek}）`
+      }
+      
+      // URLのクエリパラメータから予約情報を取得
+      function getReservationDetails() {
+        const urlParams = new URLSearchParams(window.location.search)
+        const eventDate = urlParams.get('eventDate')
+        const eventTime = urlParams.get('eventTime')
+        const participants = urlParams.get('participants')
+        const newParticipants = urlParams.get('newParticipants')
+        const totalParticipants = urlParams.get('totalParticipants')
+        const availabilityStatus = urlParams.get('availabilityStatus')
+        const remarks = urlParams.get('remarks')
+      
+        // 予約者①～⑥の情報を取得
+        const reservers = []
+        for (let i = 1; i <= 6; i++) {
+          const reserver = urlParams.get(`reserver${i}`)
+          if (reserver) {
+            reservers.push('・' + reserver)
+          }
+        }
+        // 予約台数を取得
+        const reserversCount = reservers.length
+      
+        // 予約情報を表示
+        document.getElementById('eventDateDisplay').textContent = `卓球開催日: ` + formatDateToCustom(eventDate) // 例: 10月12日(土)
+        document.getElementById('eventTimeDisplay').textContent = `卓球開催時刻: ` + eventTime // 例: 17:00-19:00
+        document.getElementById('participantsDisplay').textContent = `卓球参加予定人数: ${participants} 名`
+        document.getElementById('newParticipantsDisplay').textContent = `新規参加予定人数: ${newParticipants} 名`
+        document.getElementById('totalParticipantsDisplay').textContent = `合計参加予定人数: ${totalParticipants} 名`
+        document.getElementById('reserversCountDisplay').textContent = `台予約状況: ${reserversCount} 台予約` // 予約台数を表示
+        document.getElementById('reserverDisplay').textContent = `${reservers.join('\n')}` // 予約者を表示
+        document.getElementById('availabilityStatusDisplay').textContent = `台空き状況　残り ${availabilityStatus} 台`
+        document.getElementById('remarksDisplay').textContent = `備考:${remarks}` // 備考
+      }
+      
+      // クリップボードにコピーする関数
+      function copyToClipboard() {
+        const eventDate = document.getElementById('eventDateDisplay').textContent.trim()
+        const eventTime = document.getElementById('eventTimeDisplay').textContent.trim()
+        const participants = document.getElementById('participantsDisplay').textContent.trim()
+        const newParticipants = document.getElementById('newParticipantsDisplay').textContent.trim()
+        const totalParticipants = document.getElementById('totalParticipantsDisplay').textContent.trim()
+        const availabilityStatus = document.getElementById('availabilityStatusDisplay').textContent.trim()
+        const reserversCount = document.getElementById('reserversCountDisplay').textContent.trim()
+        const reservers = document.getElementById('reserverDisplay').textContent.trim()
+        const remarks = document.getElementById('remarksDisplay').textContent.trim()
+      
+        // 予約情報をまとめてクリップボード用にフォーマット
+        const reservationDetails = `${eventDate}` + '\n' + `${eventTime}` + '\n' + `【卓球参加予定人数】` + '\n' + `${participants}` + '\n' + `${newParticipants}` + '\n' + `${totalParticipants}` + '\n' + `${reserversCount}` + '\n' + `${reservers}` + '\n' + `${availabilityStatus}` + '\n' + `${remarks}`
+      
+        // クリップボードにコピーするための一時的な textarea を作成
+        const textarea = document.createElement('textarea')
+        textarea.value = reservationDetails
+        textarea.style.position = 'absolute'
+        textarea.style.left = '-9999px' // 画面外に配置
+        document.body.appendChild(textarea)
+      
+        // テキストを選択してコピー
+        textarea.select()
+        document.execCommand('copy')
+        document.body.removeChild(textarea) // コピー後に textarea を削除
+      
+        // コピー完了モーダルを表示
+        $('#copyModal').modal('show')
+      }
+      
+      // ページが読み込まれたときに予約情報を取得
+      window.onload = getReservationDetails
+      
+      // コピーボタンにイベントリスナーを追加
+      document.getElementById('copyButton').addEventListener('click', copyToClipboard)
+    </script>
+  </body>
+</html>
